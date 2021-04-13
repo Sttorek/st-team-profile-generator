@@ -1,9 +1,12 @@
 // generate the HTML Pages
+const Manager = require(`../lib/Manager`);
+const Engineer = require(`../lib/Engineer`);
+const Intern = require(`../lib/Intern`)
 
 const generateTeam = team => {
 
 
-const  generateManager = manager = {
+const  generateManager = Manager = {
      return `${manager.getName()} etc etc`
 }
 const  generateEngineer = Engineer = {
