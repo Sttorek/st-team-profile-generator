@@ -5,9 +5,10 @@
 // pageTemplate() is now a function
 // const pageTemplate = require(`./src/page-template.js`);
 const inquirer = require(`inquirer`);
-const engineer = require(`./lib/Engineer`);
-const intern = require(`./lib/Intern`);
-const manager = require(`./lib/Manager`);
+const Engineer = require(`./lib/Engineer`);
+const Intern = require(`./lib/Intern`);
+const Manager = require(`./lib/Manager`);
+const Employee = require(`./lib/Employee`);
 
 
 // must do inquirer in here
@@ -17,22 +18,25 @@ const manager = require(`./lib/Manager`);
 
 const path = require("path");
 const fs = require("fs");
+const { exitCode } = require("process");
 const OUTPUT_DIR = path.resolve(__dirname, "dist")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
+const team = [];
+
+
+
 
 function runApp() {
   // ...Inquirer prompt and the functions that will ask users about manager, intern, and engineer.
-  inquirer
-  .prompt([
-    {
-      type: 'input',
-      message: 'What is your name?',
+  buildManager();
+  
+  function buildManager() {
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+      message: 'Add the name of your Manager?',
       name: 'name',
-    },
-    {
-      type: 'input',
-      message: 'What is your position?',
-      name: 'position',
     },
     {
       type: 'input',
@@ -46,37 +50,107 @@ function runApp() {
     },
     {
       type: 'input',
+      message: 'What is your office number?',
+      name: 'officeNumber',
+    },
+  ])
+  .then((response) => {
+    const manager = new Manager(response.name, response.id, response.email,response.officeNumber)
+    console.log(team)
+      team.push(manager);
+      whatNext();
+  });
+};
+
+
+
+function buildEngineer() {
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      message: 'What is your name?',
+      name: 'name',
+    },
+    {
+      type: 'input',
       message: 'What is your ID?',
       name: 'id',
     },
     {
       type: 'input',
-      message: 'What is your office number?',
-      name: 'officeNum',
+      message: 'What is your email?',
+      name: 'email',
     },
     {
       type: 'input',
-      message: 'What is your Github Username?',
+      message: 'What is your Github username?',
       name: 'github',
-    },
-    {
-      type: 'input',
-      message: 'What school did you study at?',
-      name: 'school',
     },
   ])
   .then((response) => {
-    if(response.position === "intern") {
-      console.log("the value intern is recorded")
-    } else if(response.position === "manager") {
-      console.log("the value manager recorded")
-    } else if(response.position === "engineer") {
-      console.log("the value engineer recorded")
-    } else {
-      console.log("Please enter a valid work position. manager, engineer, or intern in lowercase.")
-    }
+    const engineer = new Engineer(response.name, response.id, response.email, response.github)
+      team.push(engineer);
+      whatNext();
   });
+};
+
+
+
+
+function buildIntern() {
+  // questions that apply to intern
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      message: 'What is your name?',
+      name: 'name',
+    },
+    {
+      type: 'input',
+      message: 'What is your ID?',
+      name: 'id',
+    },
+    {
+      type: 'input',
+      message: 'What is your email?',
+      name: 'email',
+    },
+    {
+      type: 'input',
+      message: 'What school did you graduate from?',
+      name: 'school',
+    }]) .then ((response) => {
+      const intern = new Intern(response.name, response.id, response.email, response.school)
+      team.push(intern);
+      whatNext();
+    })
+}
+
+function whatNext() {
+  inquirer
+  .prompt([
+    {
+      type: 'list',
+      message: 'What do you want to do next?',
+      name: 'next',
+      choices: ['Add Intern', 'Add Engineer', 'all done']
+    }]).then((response) => {
+      if(answer.next === 'Add Intern') {
+        buildIntern();
+      } else if(answer.next === 'Add Engineer') {
+        buildEngineer();
+
+      } else {
+        // buildTeam();
+        console.log(team)
+      }
+    })
+}
+
   function buildTeam() {
+    
     // Create the output directory if the output path doesn't exist
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR)
