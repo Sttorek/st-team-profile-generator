@@ -6,6 +6,7 @@ const Intern = require(`../lib/Intern`)
 const generateTeam = team => {
 
   // in here we choose which position function we use and assign the variable HTML to the fuction created and  insert into the 
+  if() 
 
 
 

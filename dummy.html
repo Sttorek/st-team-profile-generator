@@ -13,27 +13,28 @@
     <nav>
         <h1>My Team</h1>
     </nav>
-
-
+    
     <section>
 
-    <div id="cnt">
-    <div class="card" style="width: 18rem;">
-        <div id="title">
-            <!-- name and position go here -->
-            <h3>${Employee.name}</h3>
-            <h4>${data.name}</h4>
+        <div id="cnt">
+        <div class="card" style="width: 18rem;">
+            <div id="title">
+                <!-- name and position go here -->
+                <h3>${Employee.name}</h3>
+                <h4>${data.name}</h4>
+            </div>
+            
+            <div id="list" class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${Employee.id}</li>
+                    <li class="list-group-item">Email: ${Employee.email}</li>
+                    <li class="list-group-item">Insert function here that generates last item based on position</li>
+                </ul>
+            </div>
         </div>
-        
-        <div id="list" class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${Employee.id}</li>
-                <li class="list-group-item">Email: ${Employee.email}</li>
-                <li class="list-group-item">Insert function here that generates last item based on position</li>
-            </ul>
-        </div>
-    </div>
-        </section>
+            </section>
+
+
 
     </body>
 </html>
